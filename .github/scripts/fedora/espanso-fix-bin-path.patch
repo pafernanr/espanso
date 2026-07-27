@@ -1,0 +1,11 @@
+--- a/espanso/src/path/linux.rs
++++ b/espanso/src/path/linux.rs
+@@ -22,7 +22,7 @@ use std::path::PathBuf;
+ use thiserror::Error;
+
+ pub fn is_espanso_in_path() -> bool {
+-    PathBuf::from("/usr/local/bin/espanso").is_file()
++    PathBuf::from("/usr/local/bin/espanso").is_file() || PathBuf::from("/usr/bin/espanso").is_file()
+ }
+
+ pub fn add_espanso_to_path(_: bool) -> Result<()> {
