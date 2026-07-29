@@ -1,8 +1,12 @@
 [package]
 name = "espanso-info"
-version = "0.1.0"
-authors = ["Federico Terzi <federico-terzi@users.noreply.github.com>"]
-edition = "2021"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "System information gathering for espanso"
 build = "build.rs"
 
 [features]
@@ -12,7 +16,7 @@ wayland = []
 [dependencies]
 log.workspace = true
 anyhow.workspace = true
-espanso-package = { path = "../espanso-package" }
+espanso-package = { path = "../espanso-package", version = "2.4.0" }
 
 [lints]
 workspace = true

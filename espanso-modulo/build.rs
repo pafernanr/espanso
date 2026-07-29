@@ -17,6 +17,7 @@
  * along with espanso.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+use std::io::Read as _;
 use std::path::PathBuf;
 
 #[cfg(not(target_os = "windows"))]
@@ -26,7 +27,56 @@ use std::path::Path;
 const WX_WIDGETS_ARCHIVE_NAME: &str = "wxWidgets-3.1.5-patched-version-3.zip";
 
 #[cfg(not(target_os = "linux"))]
+const WX_WIDGETS_DOWNLOAD_URL: &str =
+    "https://github.com/espanso/espanso/raw/dev/espanso-modulo/vendor/wxWidgets-3.1.5-patched-version-3.zip";
+
+#[cfg(not(target_os = "linux"))]
+const WX_WIDGETS_SHA256: &str =
+    "858e0c0c622e985fb4b7c7a494bedcf35b1168af97e270c17387093ae72c3a71";
+
+#[cfg(not(target_os = "linux"))]
 const WX_WIDGETS_BUILD_OUT_DIR_ENV_NAME: &str = "WX_WIDGETS_BUILD_OUT_DIR";
+
+#[cfg(not(target_os = "linux"))]
+fn ensure_wx_archive(project_dir: &Path) -> PathBuf {
+    let vendor_path = project_dir.join("vendor").join(WX_WIDGETS_ARCHIVE_NAME);
+    if vendor_path.is_file() {
+        return vendor_path;
+    }
+
+    let out_dir = PathBuf::from(std::env::var("OUT_DIR").expect("missing OUT_DIR"));
+    let cached_path = out_dir.join(WX_WIDGETS_ARCHIVE_NAME);
+    if cached_path.is_file() && verify_sha256(&cached_path) {
+        return cached_path;
+    }
+
+    println!("cargo:warning=Downloading wxWidgets from {WX_WIDGETS_DOWNLOAD_URL}");
+    let response = ureq::get(WX_WIDGETS_DOWNLOAD_URL)
+        .call()
+        .expect("failed to download wxWidgets archive");
+
+    let mut bytes = Vec::new();
+    response
+        .into_reader()
+        .read_to_end(&mut bytes)
+        .expect("failed to read wxWidgets download");
+    std::fs::write(&cached_path, &bytes).expect("failed to write wxWidgets archive");
+
+    assert!(
+        verify_sha256(&cached_path),
+        "SHA256 mismatch for downloaded wxWidgets archive"
+    );
+
+    cached_path
+}
+
+#[cfg(not(target_os = "linux"))]
+fn verify_sha256(path: &Path) -> bool {
+    use sha2::{Digest, Sha256};
+    let bytes = std::fs::read(path).expect("failed to read file for hash verification");
+    let hash = format!("{:x}", Sha256::digest(&bytes));
+    hash == WX_WIDGETS_SHA256
+}
 
 #[cfg(target_os = "windows")]
 fn build_native() {
@@ -34,8 +84,7 @@ fn build_native() {
 
     let project_dir =
         PathBuf::from(std::env::var("CARGO_MANIFEST_DIR").expect("missing CARGO_MANIFEST_DIR"));
-    let wx_archive = project_dir.join("vendor").join(WX_WIDGETS_ARCHIVE_NAME);
-    assert!(wx_archive.is_file(), "could not find wxWidgets archive!");
+    let wx_archive = ensure_wx_archive(&project_dir);
 
     let out_dir = if let Ok(out_path) = std::env::var(WX_WIDGETS_BUILD_OUT_DIR_ENV_NAME) {
         println!("detected wxWidgets build output directory override: {out_path}");
@@ -165,8 +214,7 @@ fn build_native() {
 
     let project_dir =
         PathBuf::from(std::env::var("CARGO_MANIFEST_DIR").expect("missing CARGO_MANIFEST_DIR"));
-    let wx_archive = project_dir.join("vendor").join(WX_WIDGETS_ARCHIVE_NAME);
-    assert!(wx_archive.is_file(), "could not find wxWidgets archive!");
+    let wx_archive = ensure_wx_archive(&project_dir);
 
     let out_dir = if let Ok(out_path) = std::env::var(WX_WIDGETS_BUILD_OUT_DIR_ENV_NAME) {
         println!("detected wxWidgets build output directory override: {out_path}");

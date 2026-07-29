@@ -3,10 +3,10 @@
 version = 4
 
 [[package]]
-name = "adler"
-version = "1.0.2"
+name = "adler2"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f26201604c87b1e01bd3d98f8d5d9a8fcbb815e8cedb41ffccbeb4bf593a35fe"
+checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
 name = "ahash"
@@ -261,6 +261,15 @@ name = "block-buffer"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
+dependencies = [
+ "generic-array",
+]
+
+[[package]]
+name = "block-buffer"
+version = "0.10.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71"
 dependencies = [
  "generic-array",
 ]
@@ -641,6 +650,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "248e3bacc7dc6baa3b21e405ee045c3047101a49145e7e9eca583ab4c2ca5345"
 
 [[package]]
+name = "crypto-common"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78c8292055d1c1df0cce5d180393dc8cce0abec0a7102adb6c7b1eef6016d60a"
+dependencies = [
+ "generic-array",
+ "typenum",
+]
+
+[[package]]
 name = "cstr_core"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -753,6 +772,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3dd60d1080a57a05ab032377049e0591415d2b31afd7028356dbf3cc6dcb066"
 dependencies = [
  "generic-array",
+]
+
+[[package]]
+name = "digest"
+version = "0.10.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
+dependencies = [
+ "block-buffer 0.10.4",
+ "crypto-common",
 ]
 
 [[package]]
@@ -972,7 +1001,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-clipboard"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
@@ -984,7 +1013,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-config"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "dunce",
@@ -1005,7 +1034,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-detect"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
@@ -1025,7 +1054,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-engine"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "crossbeam",
@@ -1038,7 +1067,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-info"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
@@ -1049,7 +1078,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-inject"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
@@ -1066,7 +1095,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-ipc"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "log",
@@ -1078,7 +1107,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-kvs"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "serde",
@@ -1089,7 +1118,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-mac-utils"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "cc",
  "regex",
@@ -1097,7 +1126,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-match"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "log",
  "regex",
@@ -1106,21 +1135,23 @@ dependencies = [
 
 [[package]]
 name = "espanso-modulo"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
  "glob",
  "regex",
  "serde",
+ "sha2 0.10.9",
  "thiserror 1.0.56",
+ "ureq",
  "winres",
  "zip",
 ]
 
 [[package]]
 name = "espanso-package"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "fs_extra",
@@ -1134,7 +1165,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_norway",
- "sha2",
+ "sha2 0.9.6",
  "tempdir",
  "thiserror 1.0.56",
  "zip",
@@ -1142,7 +1173,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-render"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1157,7 +1188,7 @@ dependencies = [
 
 [[package]]
 name = "espanso-ui"
-version = "0.1.0"
+version = "2.4.0"
 dependencies = [
  "anyhow",
  "cc",
@@ -1231,13 +1262,11 @@ checksum = "52051878f80a721bb68ebfbc930e07b65ba72f2da88968ea5c06fd6ca3d3a127"
 
 [[package]]
 name = "flate2"
-version = "1.0.20"
+version = "1.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd3aec53de10fe96d7d8c565eb17f2c687bb5518a2ec453b5b1252964526abe0"
+checksum = "843fba2746e448b37e26a819579957415c8cef339bf08564fe8b7ddbd959573c"
 dependencies = [
- "cfg-if 1.0.0",
  "crc32fast",
- "libc",
  "miniz_oxide",
 ]
 
@@ -1424,9 +1453,9 @@ checksum = "8f5f3913fa0bfe7ee1fd8248b6b9f42a5af4b9d65ec2dd2c3c26132b950ecfc2"
 
 [[package]]
 name = "generic-array"
-version = "0.14.4"
+version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "501466ecc8a30d1d3b7fc9229b122b2ce8ed6e9d9223f1138d4babb253e51817"
+checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"
 dependencies = [
  "typenum",
  "version_check",
@@ -1650,7 +1679,7 @@ checksum = "1788965e61b367cd03a62950836d5cd41560c3577d90e40e0819373194d1661c"
 dependencies = [
  "http",
  "hyper",
- "rustls",
+ "rustls 0.20.8",
  "tokio",
  "tokio-rustls",
 ]
@@ -1985,12 +2014,12 @@ checksum = "2a60c7ce501c71e03a9c9c0d35b861413ae925bd979cc7a4e30d060069aaac8d"
 
 [[package]]
 name = "miniz_oxide"
-version = "0.4.4"
+version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a92518e98c078586bc6c934028adcca4c92a53d6a958196de835170a01d84e4b"
+checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
 dependencies = [
- "adler",
- "autocfg",
+ "adler2",
+ "simd-adler32",
 ]
 
 [[package]]
@@ -2857,7 +2886,7 @@ dependencies = [
  "once_cell",
  "percent-encoding",
  "pin-project-lite",
- "rustls",
+ "rustls 0.20.8",
  "rustls-pemfile",
  "serde",
  "serde_json",
@@ -2870,7 +2899,7 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "webpki-roots",
+ "webpki-roots 0.22.6",
  "winreg 0.10.1",
 ]
 
@@ -2954,12 +2983,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustls"
+version = "0.21.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cd8d6c9f025a446bc4d18ad9632e69aec8f287aa84499ee335599fabd20c3fd8"
+dependencies = [
+ "log",
+ "ring",
+ "rustls-webpki",
+ "sct",
+]
+
+[[package]]
 name = "rustls-pemfile"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d194b56d58803a43635bdc398cd17e383d6f71f9182b9a192c127ca42494a59b"
 dependencies = [
  "base64 0.21.0",
+]
+
+[[package]]
+name = "rustls-webpki"
+version = "0.101.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c7d5dece342910d9ba34d259310cae3e0154b873b35408b787b59bce53d34fe"
+dependencies = [
+ "ring",
+ "untrusted",
 ]
 
 [[package]]
@@ -3117,11 +3168,22 @@ version = "0.9.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9204c41a1597a8c5af23c82d1c921cb01ec0a4c59e07a9c7306062829a3903f3"
 dependencies = [
- "block-buffer",
+ "block-buffer 0.9.0",
  "cfg-if 1.0.0",
  "cpufeatures",
- "digest",
+ "digest 0.9.0",
  "opaque-debug",
+]
+
+[[package]]
+name = "sha2"
+version = "0.10.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
+dependencies = [
+ "cfg-if 1.0.0",
+ "cpufeatures",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -3138,6 +3200,12 @@ checksum = "9203b8055f63a2a00e2f593bb0510367fe707d7ff1e5c872de2f537b339e5410"
 dependencies = [
  "libc",
 ]
+
+[[package]]
+name = "simd-adler32"
+version = "0.3.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a219298ac11a56ea9a6d2120044824d6f01aeb034955e7af7bc16858527deea"
 
 [[package]]
 name = "simplelog"
@@ -3486,7 +3554,7 @@ version = "0.23.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c43ee83903113e03984cb9e5cebe6c04a5116269e900e3ddba8f068a62adda59"
 dependencies = [
- "rustls",
+ "rustls 0.20.8",
  "tokio",
  "webpki",
 ]
@@ -3668,6 +3736,22 @@ name = "untrusted"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a156c684c91ea7d62626509bce3cb4e1d9ed5c4d978f7b4352658f96a4c26b4a"
+
+[[package]]
+name = "ureq"
+version = "2.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f8cdd25c339e200129fe4de81451814e5228c9b771d57378817d6117cc2b3f97"
+dependencies = [
+ "base64 0.21.0",
+ "flate2",
+ "log",
+ "once_cell",
+ "rustls 0.21.7",
+ "rustls-webpki",
+ "url",
+ "webpki-roots 0.25.4",
+]
 
 [[package]]
 name = "url"
@@ -3940,6 +4024,12 @@ checksum = "b6c71e40d7d2c34a5106301fb632274ca37242cd0c9d3e64dbece371a40a2d87"
 dependencies = [
  "webpki",
 ]
+
+[[package]]
+name = "webpki-roots"
+version = "0.25.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f20c57d8d7db6d3b86154206ae5d8fba62dd39573114de97c2cb0578251f8e1"
 
 [[package]]
 name = "widestring"

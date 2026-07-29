@@ -1,6 +1,5 @@
 [workspace]
 resolver = "2"
-
 members = [
   "espanso",
   "espanso-detect",
@@ -18,6 +17,14 @@ members = [
   "espanso-engine",
   "espanso-package",
 ]
+
+[workspace.package]
+version = "2.4.0"
+authors = ["Federico Terzi <federico-terzi@users.noreply.github.com>"]
+license = "GPL-3.0-only"
+edition = "2021"
+repository = "https://github.com/espanso/espanso"
+homepage = "https://espanso.org/"
 
 [workspace.lints.clippy]
 enum_glob_use = "deny"

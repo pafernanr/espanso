@@ -1,8 +1,13 @@
 [package]
 name = "espanso-modulo"
-version = "0.1.0"
-authors = ["Federico Terzi <federico-terzi@users.noreply.github.com>"]
-edition = "2021"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "GUI module (forms, search) for espanso"
+exclude = ["vendor/*.zip"]
 build = "build.rs"
 
 [dependencies]
@@ -17,6 +22,8 @@ regex.workspace = true
 zip = { version = "0.5.12", default-features = false, features = ["deflate", "bzip2"] }
 winres = "0.1.11"
 glob.workspace = true
+ureq = "2"
+sha2 = "0.10"
 
 [lints]
 workspace = true
